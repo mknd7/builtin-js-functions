@@ -1,0 +1,23 @@
+{
+  "name": "builtin-js-functions",
+  "version": "1.0.0",
+  "description": "Core JS functions written in plain language",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "rollup --config",
+    "test": "jest"
+  },
+  "author": "Mukund Vijayaraghavan",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "jest": "^24.9.0",
+    "rollup": "^1.21.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  }
+}
