@@ -1,6 +1,6 @@
 const array = {
   includes: (arr, el) => {
-    return arr.indexOf(el) != -1
+    return arr.indexOf(el) != -1;
   },
 
   forEach: (arr, func) => {

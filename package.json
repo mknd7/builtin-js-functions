@@ -4,10 +4,12 @@
   "description": "Core JS functions written in plain language",
   "main": "index.js",
   "directories": {
+    "lib": "src",
     "test": "test"
   },
   "scripts": {
     "build": "rollup --config",
+    "lint": "eslint --fix src/**/*.js test/**/*.js",
     "test": "jest"
   },
   "author": "Mukund Vijayaraghavan",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
+    "eslint": "^6.4.0",
     "jest": "^24.9.0",
     "rollup": "^1.21.2",
     "rollup-plugin-babel": "^4.3.3",

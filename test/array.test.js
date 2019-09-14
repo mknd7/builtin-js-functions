@@ -1,3 +1,4 @@
+/* global jest, test, expect */
 import bi from '../src/main';
 
 const arr = [2, 5, 12];
@@ -9,7 +10,7 @@ test('includes', () => {
 
 
 test('forEach', () => {
-  const mock = jest.fn(el => {});
+  const mock = jest.fn(el => el * 2);
 
   expect(bi.forEach(arr, mock));
   expect(mock).toHaveBeenCalledTimes(arr.length);
