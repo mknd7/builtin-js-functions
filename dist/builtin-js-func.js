@@ -69,64 +69,119 @@ function _nonIterableSpread() {
   throw new TypeError("Invalid attempt to spread non-iterable instance");
 }
 
-var array = {
-  // Mutator functions
-  fill: function fill(arr, value) {
-    var start = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-    var end = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : arr.length;
+var BI_Array = function () {
+  /**
+   * @param index - Index value
+   * 1. If index is negative, add with array length; if not, make it zero
+   * 2. If index is greater than array length, make it equal to array lengh
+   */
+  var normalizeIndex = function normalizeIndex(arrLength, index) {
+    if (index < 0) {
+      index = arrLength + index;
 
-    for (var i = start; i < end; i += 1) {
-      arr[i] = value;
-    }
-
-    return arr;
-  },
-  reverse: function reverse(arr) {
-    var temp;
-
-    for (var i = 0; i < Math.floor(arr.length / 2); i += 1) {
-      temp = arr[i];
-      arr[i] = arr[arr.length - 1 - i];
-      arr[arr.length - 1 - i] = temp;
-    }
-
-    return arr;
-  },
-  // Accessor functions
-  concat: function concat(arr1, arr2) {
-    return [].concat(_toConsumableArray(arr1), _toConsumableArray(arr2));
-  },
-  includes: function includes(arr, el) {
-    return arr.indexOf(el) != -1;
-  },
-  // Iteration functions
-  forEach: function forEach(arr, func) {
-    for (var i = 0; i < arr.length; i += 1) {
-      func(arr[i], i);
-    }
-  },
-  filter: function filter(arr, test) {
-    var filteredArr = [];
-
-    for (var i = 0; i < arr.length; i += 1) {
-      if (test(arr[i], i)) {
-        filteredArr.push(arr[i]);
+      if (index < 0) {
+        index = 0;
       }
+    } else if (index > arrLength) {
+      index = arrLength;
     }
 
-    return filteredArr;
-  },
-  map: function map(arr, func) {
-    var mappedArr = [];
+    return index;
+  };
 
-    for (var i = 0; i < arr.length; i += 1) {
-      mappedArr.push(func(arr[i], i));
+  return {
+    // Mutator functions
+    fill: function fill(arr, value) {
+      var start = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var end = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : arr.length;
+      start = normalizeIndex(arr.length, start);
+      end = normalizeIndex(arr.length, end);
+
+      if (end <= start) {
+        return arr;
+      }
+
+      for (var i = start; i < end; i += 1) {
+        arr[i] = value;
+      }
+
+      return arr;
+    },
+    reverse: function reverse(arr) {
+      var temp;
+
+      for (var i = 0; i < Math.floor(arr.length / 2); i += 1) {
+        temp = arr[i];
+        arr[i] = arr[arr.length - 1 - i];
+        arr[arr.length - 1 - i] = temp;
+      }
+
+      return arr;
+    },
+    // copyWithin: (arr, targetIndex, start, end) => {},
+    // Accessor functions
+    concat: function concat(arr1, arr2) {
+      return [].concat(_toConsumableArray(arr1), _toConsumableArray(arr2));
+    },
+    includes: function includes(arr, el) {
+      return arr.indexOf(el) != -1;
+    },
+    slice: function slice(arr) {
+      var start = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var end = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : arr.length;
+
+      if (start === end) {
+        return [];
+      }
+
+      if (start === 0 && end === arr.length) {
+        return _toConsumableArray(arr);
+      }
+
+      start = normalizeIndex(arr.length, start);
+      end = normalizeIndex(arr.length, end);
+
+      if (end <= start) {
+        return [];
+      }
+
+      var sliced = [];
+
+      for (var i = start; i < end; i += 1) {
+        sliced.push(arr[i]);
+      }
+
+      return sliced;
+    },
+    // Iteration functions
+    forEach: function forEach(arr, func) {
+      for (var i = 0; i < arr.length; i += 1) {
+        func(arr[i], i);
+      }
+    },
+    filter: function filter(arr, test) {
+      var filteredArr = [];
+
+      for (var i = 0; i < arr.length; i += 1) {
+        if (test(arr[i], i)) {
+          filteredArr.push(arr[i]);
+        }
+      }
+
+      return filteredArr;
+    },
+    map: function map(arr, func) {
+      var mappedArr = [];
+
+      for (var i = 0; i < arr.length; i += 1) {
+        mappedArr.push(func(arr[i], i));
+      }
+
+      return mappedArr;
     }
+  };
+}();
 
-    return mappedArr;
-  }
-};
-
-var BI = _objectSpread2({}, array);
+var BI = _objectSpread2({}, BI_Array);
 
 module.exports = BI;
