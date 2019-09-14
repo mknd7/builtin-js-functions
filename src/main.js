@@ -1,7 +1,7 @@
 import array from './functions/array';
 
 const BI = {
-  array
+  ...array
 };
 
 export default BI;

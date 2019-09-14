@@ -1,24 +1,32 @@
-import bia from '../src/functions/array';
+import bi from '../src/main';
+
+const arr = [2, 5, 12];
 
 test('includes', () => {
-  const arr = [2, 5, 12];
-
-  expect(bia.includes(arr, 4)).toBeFalsy();
-  expect(bia.includes(arr, 5)).toBeTruthy();
+  expect(bi.includes(arr, 4)).toBeFalsy();
+  expect(bi.includes(arr, 5)).toBeTruthy();
 });
 
 
 test('forEach', () => {
-  const arr = [2, 5, 12];
+  const mock = jest.fn(el => {});
 
-  expect(bia.forEach(arr, (el, id) => {
-  }));
+  expect(bi.forEach(arr, mock));
+  expect(mock).toHaveBeenCalledTimes(arr.length);
 });
 
 
 test('map', () => {
-  const arr = [2, 5, 12];
+  const mapFunc = el => el * 2;
 
-  expect(bia.map(arr, el => el * 2)).toEqual(arr.map(el => el * 2));
-  expect(bia.map(arr, el => el * 2)).not.toEqual(arr.map(el => el * 5));
-})
+  expect(bi.map(arr, mapFunc)).toEqual(arr.map(mapFunc));
+  expect(bi.map(arr, mapFunc)).not.toEqual(arr.map(el => el * 5));
+});
+
+
+test('filter', () => {
+  const filterFunc = el => el % 2 === 0;
+
+  expect(bi.filter(arr, filterFunc)).toEqual(arr.filter(filterFunc));
+  expect(bi.filter(arr, filterFunc)).not.toEqual(arr.filter(el => el % 2 !== 0));
+});

@@ -15,6 +15,16 @@ const array = {
       mappedArr.push(func(arr[i], i));
     }
     return mappedArr;
+  },
+
+  filter: (arr, test) => {
+    let filteredArr = [];
+    for(let i = 0; i < arr.length; i += 1) {
+      if(test(arr[i])) {
+        filteredArr.push(arr[i]);
+      }
+    }
+    return filteredArr;
   }
 };
 
