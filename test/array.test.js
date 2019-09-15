@@ -5,7 +5,7 @@ const arr = [2, 5, 12, -5, 17];
 
 describe('Array functions', () => {
   // Mutator functions
-  // Using spread operator to get a fresh copy every time
+  // Using spread syntax to get a fresh array every time
   test('fill', () => {
     expect(bi.fill([...arr], 0)).toEqual(Array(arr.length).fill(0));
     expect(bi.fill([...arr], 0, 1, 4)).toEqual([...arr].fill(0, 1, 4));
@@ -24,6 +24,14 @@ describe('Array functions', () => {
   test('copyWithin', () => {
     expect(bi.copyWithin([...arr], 0)).toEqual([...arr].copyWithin(0));
     expect(bi.copyWithin([...arr], 7)).toEqual([...arr].copyWithin(7));
+
+    expect(bi.copyWithin([...arr], 2, 3)).toEqual([...arr].copyWithin(2, 3));
+    expect(bi.copyWithin([...arr], 2, 3, 4)).toEqual([...arr].copyWithin(2, 3, 4));
+    expect(bi.copyWithin([...arr], 2, 3, 2)).toEqual([...arr].copyWithin(2, 3, 2));
+
+    expect(bi.copyWithin([...arr], 2, -2)).toEqual([...arr].copyWithin(2, -2));
+    expect(bi.copyWithin([...arr], 2, -3, -4)).toEqual([...arr].copyWithin(2, -3, -4));
+    expect(bi.copyWithin([...arr], 2, -3, -2)).toEqual([...arr].copyWithin(2, -3, -2));
   });
 
   // Accessor functions
