@@ -21,6 +21,11 @@ describe('Array functions', () => {
     expect(bi.reverse([...arr, 3])).toEqual([...arr, 3].reverse());
   });
 
+  test('copyWithin', () => {
+    expect(bi.copyWithin([...arr], 0)).toEqual([...arr].copyWithin(0));
+    expect(bi.copyWithin([...arr], 7)).toEqual([...arr].copyWithin(7));
+  });
+
   // Accessor functions
   test('concat', () => {
     const arr2 = [3, 4, 12];
